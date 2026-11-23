@@ -60,7 +60,7 @@ import { providerInstanceEntriesFor } from "../../providerInstances";
 import { usePrimaryCloudLinkState } from "../../cloud/cloudLinkState";
 import { requestConfirmDialog } from "../../confirmDialog";
 import { webhookAddress } from "@t3tools/client-runtime/webhook-address";
-import { Link, useNavigate } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useCopyToClipboard } from "../../hooks/useCopyToClipboard";
 import { useNowMinute } from "../../hooks/useNowMinute";
 import {
@@ -448,12 +448,15 @@ export function ScheduledTasksSettings(target: {
     setOpenedLinkTaskId(target.taskId);
     if (editor === null) setEditor({ environmentId: linkedEnvironmentId, task: linkedTask });
   }
-  const navigate = useNavigate({ from: "/settings/scheduled-tasks" });
+  const pathname = useLocation({ select: (location) => location.pathname });
+  const scheduledTasksRoute =
+    pathname === "/scheduled-tasks" ? "/scheduled-tasks" : "/settings/scheduled-tasks";
+  const navigate = useNavigate();
   const closeEditor = () => {
     setEditor(null);
     if (target.taskId === undefined) return;
     void navigate({
-      to: "/settings/scheduled-tasks",
+      to: scheduledTasksRoute,
       search: ({ taskId: _closed, ...rest }) => rest,
       replace: true,
     });
