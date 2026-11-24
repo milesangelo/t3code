@@ -1,4 +1,10 @@
-import { ArrowLeftIcon, ArrowRightIcon, ChartNoAxesColumnIcon, SettingsIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  CalendarClockIcon,
+  ChartNoAxesColumnIcon,
+  SettingsIcon,
+} from "lucide-react";
 import type { ReactNode } from "react";
 import { T, useGT } from "gt-react";
 import { memo } from "react";
@@ -285,6 +291,14 @@ const SidebarUtilityMenu = memo(function SidebarUtilityMenu() {
             icon={<SettingsIcon />}
             label={gt("Settings")}
             onClick={handleSettingsClick}
+          />
+          <SidebarUtilityItem
+            icon={<CalendarClockIcon />}
+            label={gt("Scheduled tasks")}
+            onClick={() => {
+              closeMobileSidebar();
+              void navigate({ to: "/scheduled-tasks" });
+            }}
           />
           {pullRequestsSupported ? (
             <SidebarUtilityItem

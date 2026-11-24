@@ -85,6 +85,7 @@ branch name remains.
 
 ## Scheduled tasks on mobile
 
+On desktop and web, **Scheduled tasks** in the main sidebar opens the same list.
 Open **Settings → Scheduled tasks** to create scheduled tasks or manage existing
 ones across your connected environments. Use the settings filter to narrow the
 list by environment or project. Each task runs on the environment you choose,
