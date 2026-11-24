@@ -1,0 +1,35 @@
+name: macOS web typecheck
+
+# Fork gate for this checkout. Upstream CI needs Blacksmith runners this fork
+# does not have. This job typechecks the web app on macOS, which is the UI the
+# desktop app loads.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  web:
+    name: Typecheck web
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 26.13.1
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck web
+        run: pnpm exec vp run --filter @t3tools/web typecheck
